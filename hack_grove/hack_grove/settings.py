@@ -71,6 +71,7 @@ TEMPLATES = [
 
 TEMPLATE_DIRS = (
                   os.path.join('../gameplay/', 'templates'),
+                  os.path.join('javascript'),
 
 )
 
