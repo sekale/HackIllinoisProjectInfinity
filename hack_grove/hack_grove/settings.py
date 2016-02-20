@@ -69,6 +69,11 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_DIRS = (
+                  os.path.join('../gameplay/', 'templates'),
+
+)
+
 WSGI_APPLICATION = 'hack_grove.wsgi.application'
 
 
