@@ -30,10 +30,8 @@ function main()
 {
     ctx.fillStyle = "rgba(255,0,0,1)";
     ctx.fillRect(0,0, canvas.width, canvas.height);
-    //ctx.stroke();
     ctx.fillStyle = "rgba(0,0,0,1)";
-    ctx.rect(test_player_x,test_player_y, 50, 50);
-    ctx.stroke();
+    ctx.fillRect(test_player_x,test_player_y, 50, 50);
     console.log("yo");
     if(directionDriving == "LEFT")
         test_player_x -= 1;
