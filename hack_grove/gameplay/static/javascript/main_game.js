@@ -18,6 +18,8 @@ var keyPlayerHeight;
 
 console.log(screen_width);
 setup();
+// var then = Date.now();
+// var now = Date.now();
 main();
 
 
@@ -33,7 +35,7 @@ function setup()
 
     for(var i = 0; i < NO_OF_PLAYERS; i+=1)
     {
-        players.push( {x:(canvas.width * 0.25 + (canvas.width * i / 2) / NO_OF_PLAYERS), y:(keyPlayerHeight), speed:0 } );
+        players.push( {x:(canvas.width * 0.25 + (canvas.width * i / 2) / NO_OF_PLAYERS), y:(keyPlayerHeight), speed:i+1 } );
     }
     for(var i = 1; i < NO_OF_PLAYERS; i+=1)
     {
@@ -55,9 +57,11 @@ function drawPlayer()
     ctx.fillRect(players[0].x,keyPlayerHeight, 50, 50);
     for(var i = 1; i < NO_OF_PLAYERS; i+=1)
     {
-        if(players[i].y < players[0].y)
+        if(players[i].y < players[0].y && players[i].y >= canvas.height * 0.20)
         {
             ctx.fillRect(players[i].x,players[i].y, 50, 50);
+            
+            ctx.fillText(i, players[i].x,players[i].y);
         }
     }
 }
@@ -70,11 +74,41 @@ function updateHorizontalDirections()
         players[0].x += 1;
 }
 
+function updateVerticalDirections()
+{
+    for(var i = 0; i < NO_OF_PLAYERS; i+=1)
+    {
+        players[i].y -= players[i].speed;
+    }
+
+    // but we want players[0] to update to keyPlayerHeight
+    var changeInHeight = keyPlayerHeight - players[0].y;
+    for(var i = 0; i < NO_OF_PLAYERS; i+=1)
+    {
+        players[i].y += changeInHeight;
+    }
+}
+
+function reRandomizeSpeeds()
+{
+    for(var i = 0; i < NO_OF_PLAYERS; i+=1)
+    {
+        players[i].speed = Math.random() * 10;
+    }
+}
+
 function main()
 {
+    // now = Date.now();
     drawBG();
     drawPlayer();
     updateHorizontalDirections();
+    updateVerticalDirections();
+    // if(now - then > 1000)
+    // {
+    //     then = now;
+    // }
+    reRandomizeSpeeds();
     requestAnimationFrame(main);
 }
 
