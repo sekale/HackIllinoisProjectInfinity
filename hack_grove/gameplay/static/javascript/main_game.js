@@ -37,7 +37,7 @@ function setup()
 
     for(var i = 0; i < NO_OF_PLAYERS; i+=1)
     {
-        players.push( {x:(canvas.width * 0.25 + (canvas.width * i / 2) / NO_OF_PLAYERS), y:(keyPlayerHeight), speed:i } );
+        players.push( {x:(canvas.width * 0.25 + (canvas.width * i / 2) / NO_OF_PLAYERS), y:(keyPlayerHeight), speed:0 } );
     }
     for(var i = 1; i < NO_OF_PLAYERS; i+=1)
     {
@@ -142,6 +142,11 @@ function updateHorizontalDirections()
         players[0].x -= 1;
     else if(directionDriving == "RIGHT")
         players[0].x += 1;
+
+    if(turnVal != 0)
+    {
+        players[0].x -= (parseInt(turnVal/10)/10)
+    }
 }
 
 function updateVerticalDirections()
