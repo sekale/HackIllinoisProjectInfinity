@@ -39,19 +39,19 @@ def output_command(x_val, y_val, z_val):
 
     if(y_val > 10):
         value = 0 #center
-        #print("here")
+        print("here")
 
     elif(y_val >= -10 and y_val <= 10):
         value = 1 #right
-        #print("here")
+        print("here")
 
     elif(y_val < 10):
         value = -1 #left
-        #print("here")
+        print("here")
 
     else:
         value = 3 #exit the program
-        #print("here")
+        print("here")
 
     return value
 
@@ -110,4 +110,4 @@ while (1):
     print(output_command(var1, var2, var3))
  
 
-    time.sleep(.5)
+  #  time.sleep(.5)

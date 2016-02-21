@@ -62,6 +62,9 @@ function drawBG()
     ctx.drawImage(imgObj, 0, 0, canvas.width, canvas.height);
     // ctx.fillRect(0,0, canvas.width, canvas.height);
 
+    ctx.fillStyle = "rgba(0,25,250,1)";
+    ctx.fillText(directionDriving, 10, 10);
+
     // Tharai
     ctx.fillStyle = "rgba(0,255,10,1)"; // pacchai
     var imgObj = new Image();
@@ -255,6 +258,9 @@ function main()
     //     then = now;
     // }
     reRandomizeSpeeds();
+
+//    var audio = new Audio('motor_audio.mp3');
+  //  audio.play();
 
     var txtFile = new XMLHttpRequest();                                        
     txtFile.open("GET", "http://172.17.15.199:8080", true);

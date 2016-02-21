@@ -5,6 +5,23 @@ import pyupm_mma7660 as upmMMA7660
 
  
 
+
+import pyupm_i2clcd as lcd
+
+# Initialize Jhd1313m1 at 0x3E (LCD_ADDRESS) and 0x62 (RGB_ADDRESS) 
+myLcd = lcd.Jhd1313m1(0, 0x3E, 0x62)
+
+#myLcd.setCursor(0,0)
+# RGB Blue
+#myLcd.setColor(53, 39, 249)
+
+# RGB Red
+#myLcd.setColor(255, 0, 0)
+
+#myLcd.write('Hello World')
+#myLcd.setCursor(1,2)
+#myLcd.write('Hello World')
+
 # Instantiate an MMA7660 on I2C bus 0
 
 myDigitalAccelerometer = upmMMA7660.MMA7660(
@@ -45,6 +62,8 @@ def output_command(x_val, y_val, z_val):
             os.remove("RIGHT")
         with open("CENTER", 'w') as input:
             print("here")
+	myLcd.setColor(255,0,0)
+	myLcd.write('Center')
     
         #print("here")
 
@@ -56,6 +75,7 @@ def output_command(x_val, y_val, z_val):
             os.remove("LEFT")
         with open("CENTER", 'w') as input:
             print("here")
+	myLcd.setColor(0,255,0)
         #print("here")
 
     elif(y_val < 10):
@@ -67,6 +87,7 @@ def output_command(x_val, y_val, z_val):
         with open("LEFT", 'w') as input:
             print("here")
         #print("here")
+	myLcd.setColor(0,0,255)
 
     else:
         value = 3 #exit the program
