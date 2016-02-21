@@ -98,11 +98,11 @@ function drawRoad()
     console.log(turnVal)
     if(treeCounter == 0)
     {
-        objects.push({  x: ( canvas.width * (0.2 - turnVal_effective) ) ,
+        objects.push({  x: ( canvas.width * (0.18) ) ,
                         y: canvas.height * 0,
                         dx: canvas.height * 0.01 * -1,
                         dy: canvas.height * 0.01});
-        objects.push({  x: ( canvas.width * (0.7 + turnVal_effective) ) ,
+        objects.push({  x: ( canvas.width * (0.75) ) ,
                         y: canvas.height * 0,
                         dx: canvas.height * 0.01,
                         dy: canvas.height * 0.01});
@@ -209,7 +209,12 @@ function updateHorizontalDirections()
 
     if(turnVal != 0)
     {
-        players[0].x -= (parseInt(turnVal/10)/10)
+        players[0].x -= (parseInt(turnVal/10)/10);
+    }
+
+    if(players[0].x < 0 || players[0].x > canvas.width)
+    {
+        players[0].x = 0.5 * canvas.width;
     }
 }
 
