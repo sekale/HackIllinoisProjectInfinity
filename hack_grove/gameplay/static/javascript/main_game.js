@@ -55,11 +55,17 @@ function drawBG()
 {
     // Aagayam
     ctx.fillStyle = "rgba(0,25,250,1)"; // neelam
-    ctx.fillRect(0,0, canvas.width, canvas.height);
+    var imgObj = new Image();
+    imgObj.src = "../static/res/sky_ok.png"
+    ctx.drawImage(imgObj, 0, 0, canvas.width, canvas.height);
+    // ctx.fillRect(0,0, canvas.width, canvas.height);
 
     // Tharai
     ctx.fillStyle = "rgba(0,255,10,1)"; // pacchai
-    ctx.fillRect(0,canvas.height*0.25, canvas.width, canvas.height);
+    var imgObj = new Image();
+    imgObj.src = "../static/res/grass_green.jpg"
+    ctx.drawImage(imgObj, 0, canvas.height * 0.25, canvas.width, canvas.height);
+    // ctx.fillRect(0,canvas.height*0.25, canvas.width, canvas.height);
 }
 
 function drawRoad()
@@ -67,8 +73,8 @@ function drawRoad()
     var turnVal_effective = (parseInt(turnVal/10)/100)
     console.log(turnVal, turnDirection, turnVal_effective);
 
-    ctx.fillStyle = "rgba(255,0,0,0.7)";
     ctx.beginPath();
+    ctx.fillStyle = "rgba(100,20,20,1)";
     ctx.moveTo(0, canvas.height);
     ctx.lineTo(0, keyPlayerHeight * 1.15);
         var avgx = ( canvas.width * (0.3 + turnVal_effective) + 0 ) / 2;
@@ -80,6 +86,11 @@ function drawRoad()
     ctx.quadraticCurveTo(avgx - canvas.width * (turnVal_effective), avgy, canvas.width, keyPlayerHeight * 1.15);
     ctx.lineTo(canvas.width, canvas.height);
     ctx.closePath();
+
+    var imgObj = new Image();
+    imgObj.src = "../static/res/dark_road.jpg"
+    var pat=ctx.createPattern(imgObj,"repeat");
+    ctx.fillStyle=pat;
     ctx.fill();
 
     if (Math.abs(turnVal) == 110 && turnVal_atZeroFlag == 0)
@@ -124,13 +135,18 @@ function drawRoad()
 function drawPlayer()
 {
     ctx.fillStyle = "rgba(0,0,0,1)";
-    ctx.fillRect(players[0].x,keyPlayerHeight, 50, 150);
+
+    var imgObj = new Image();
+    imgObj.src = "../static/res/biker_blue.png"
+    ctx.drawImage(imgObj, players[0].x, keyPlayerHeight, 50, 150);
+    // ctx.fillRect(players[0].x,keyPlayerHeight, 50, 150);
     for(var i = 1; i < NO_OF_PLAYERS; i+=1)
     {
         if(players[i].y < players[0].y && players[i].y >= canvas.height * 0.10)
         {
-            ctx.fillRect(players[i].x,players[i].y, 50, 150);
-
+            var imgObj = new Image();
+            imgObj.src = "../static/res/biker_red.png"
+            ctx.drawImage(imgObj, players[i].x, players[i].y, 50, 150);
             ctx.fillText(i, players[i].x,players[i].y);
         }
     }
@@ -139,9 +155,9 @@ function drawPlayer()
 function updateHorizontalDirections()
 {
     if(directionDriving == "LEFT")
-        players[0].x -= 1;
+        players[0].x -= 2;
     else if(directionDriving == "RIGHT")
-        players[0].x += 1;
+        players[0].x += 2;
 
     if(turnVal != 0)
     {
