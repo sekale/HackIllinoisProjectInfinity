@@ -2,7 +2,8 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 from django.template import Context, loader
+from sensor import *
 
 def turn(request):
-	return HttpResponse("This is index page 1")
+	return HttpResponse("New Value Here")
 	
