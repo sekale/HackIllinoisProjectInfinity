@@ -14,6 +14,7 @@ var directionDriving = "CENTER";
 
 var players = [];
 var turnVal, turnDirection;
+var turnVal_atZeroFlag, turnVal_atZeroCounter;
 
 var keyPlayerHeight;
 
@@ -45,6 +46,8 @@ function setup()
 
     turnVal = 0;
     turnDirection = 1;
+    turnVal_atZeroFlag = 0;
+    turnVal_atZeroCounter = 250;
     console.log(turnVal, turnDirection);
 }
 
@@ -79,8 +82,9 @@ function drawRoad()
     ctx.closePath();
     ctx.fill();
 
-    if (Math.abs(turnVal) == 110)
+    if (Math.abs(turnVal) == 110 && turnVal_atZeroFlag == 0)
     {
+        turnVal_atZeroFlag = 1;
         if (turnDirection == 1)
         {
             turnDirection = -1;
@@ -90,8 +94,9 @@ function drawRoad()
             turnDirection = 1;
         }
     }
-    if (turnVal == 0)
+    if (turnVal == 0 && turnVal_atZeroFlag == 0)
     {
+        turnVal_atZeroFlag = 1;
         turnDirection = parseInt(Math.random() * 10) % 2;
         if(turnDirection == 0)
         {
@@ -99,7 +104,21 @@ function drawRoad()
         }
     }
 
-    turnVal += turnDirection;
+    if(turnVal_atZeroFlag == 1)
+    {
+        turnVal_atZeroCounter -= 1;
+    }
+    else
+    {
+        turnVal += turnDirection;
+    }
+    if(turnVal_atZeroCounter == 0)
+    {
+        turnVal_atZeroFlag = 0;
+        turnVal_atZeroCounter = 150;
+        turnVal += turnDirection;
+    }
+
 }
 
 function drawPlayer()
