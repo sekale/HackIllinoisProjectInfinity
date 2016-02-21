@@ -13,8 +13,10 @@ var canvas_padding = 10;
 var directionDriving = "CENTER";
 
 var players = [];
+var objects = [];
 var turnVal, turnDirection;
 var turnVal_atZeroFlag, turnVal_atZeroCounter;
+var treeCounter = 0;
 
 var keyPlayerHeight;
 
@@ -48,7 +50,7 @@ function setup()
     turnDirection = 1;
     turnVal_atZeroFlag = 0;
     turnVal_atZeroCounter = 250;
-    console.log(turnVal, turnDirection);
+    //console.log(turnVal, turnDirection);
 }
 
 function drawBG()
@@ -71,7 +73,7 @@ function drawBG()
 function drawRoad()
 {
     var turnVal_effective = (parseInt(turnVal/10)/100)
-    console.log(turnVal, turnDirection, turnVal_effective);
+    //console.log(turnVal, turnDirection, turnVal_effective);
 
     ctx.beginPath();
     ctx.fillStyle = "rgba(100,20,20,1)";
@@ -93,6 +95,24 @@ function drawRoad()
     ctx.fillStyle=pat;
     ctx.fill();
 
+    console.log(turnVal)
+    if(treeCounter == 0)
+    {
+        objects.push({  x: ( canvas.width * (0.2 - turnVal_effective) ) ,
+                        y: canvas.height * 0,
+                        dx: canvas.height * 0.01 * -1,
+                        dy: canvas.height * 0.01});
+        objects.push({  x: ( canvas.width * (0.7 + turnVal_effective) ) ,
+                        y: canvas.height * 0,
+                        dx: canvas.height * 0.01,
+                        dy: canvas.height * 0.01});
+        treeCounter = 30;
+    }
+    else
+    {
+        treeCounter -= 1;
+    }
+
     if (Math.abs(turnVal) == 110 && turnVal_atZeroFlag == 0)
     {
         turnVal_atZeroFlag = 1;
@@ -108,6 +128,16 @@ function drawRoad()
     if (turnVal == 0 && turnVal_atZeroFlag == 0)
     {
         turnVal_atZeroFlag = 1;
+
+        // objects.push({  x: ( canvas.width * (0.2) ) ,
+        //                 y: canvas.height * 0,
+        //                 dx: canvas.height * 0.01 * -1,
+        //                 dy: canvas.height * 0.01});
+        // objects.push({  x: ( canvas.width * (0.75) ) ,
+        //                 y: canvas.height * 0,
+        //                 dx: canvas.height * 0.01,
+        //                 dy: canvas.height * 0.01});
+
         turnDirection = parseInt(Math.random() * 10) % 2;
         if(turnDirection == 0)
         {
@@ -130,6 +160,24 @@ function drawRoad()
         turnVal += turnDirection;
     }
 
+}
+
+function drawTrees()
+{
+    ctx.fillStyle = "rgba(0,0,0,1)";
+
+    var imgObj = new Image();
+    imgObj.src = "../static/res/tree.png"
+    for(var i = 0; i < objects.length; i+=1)
+    {
+        ctx.drawImage(imgObj, objects[i].x, objects[i].y, 100, 250);
+        objects[i].x += objects[i].dx;
+        objects[i].y += objects[i].dy;
+        if(objects[i].y > canvas.width)
+        {
+            objects.splice(i);
+        }
+    }
 }
 
 function drawPlayer()
@@ -193,6 +241,7 @@ function main()
     // now = Date.now();
     drawBG();
     drawRoad();
+    drawTrees();
     drawPlayer();
     updateHorizontalDirections();
     updateVerticalDirections();
@@ -203,9 +252,3 @@ function main()
     reRandomizeSpeeds();
     requestAnimationFrame(main);
 }
-
-document.getElementById("lr_action").onchange = function()
-{
-    directionDriving = document.getElementById("lr_action").value;
-    console.log("lr_action was changed to " + directionDriving);
-};
