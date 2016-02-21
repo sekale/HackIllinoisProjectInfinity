@@ -40,31 +40,31 @@ def output_command(x_val, y_val, z_val):
     if(y_val > 10):
         value = 0 #center
         if(os.path.exists("left")):
-            os.remove("left")
-        if(os.path.exists("right")):
-            os.remove("right")
-        with open("center") as input:
+            os.remove("LEFT")
+        if(os.path.exists("RIGHT")):
+            os.remove("RIGHT")
+        with open("CENTER", 'w') as input:
             print("here")
     
         #print("here")
 
     elif(y_val >= -10 and y_val <= 10):
         value = 1 #right
-        if(os.path.exists("center")):
-            os.remove("center")
-        if(os.path.exists("left")):
-            os.remove("left")
-        with open("right") as input:
+        if(os.path.exists("RIGHT")):
+            os.remove("RIGHT")
+        if(os.path.exists("LEFT")):
+            os.remove("LEFT")
+        with open("CENTER", 'w') as input:
             print("here")
         #print("here")
 
     elif(y_val < 10):
         value = -1 #left
-        if(os.path.exists("center")):
-            os.remove("center")
-        if(os.path.exists("right")):
-            os.remove("right")
-        with open("left") as input:
+        if(os.path.exists("CENTER")):
+            os.remove("CENTER")
+        if(os.path.exists("RIGHT")):
+            os.remove("RIGHT")
+        with open("LEFT", 'w') as input:
             print("here")
         #print("here")
 

@@ -1,4 +1,4 @@
-
+#Revision : 6:00 am
 import time, sys, signal, atexit
 
 import pyupm_mma7660 as upmMMA7660
@@ -39,18 +39,27 @@ def output_command(x_val, y_val, z_val):
 
     if(y_val > 10):
         value = 0 #center
+        with open("../hack_grove/gameplay/static/direction.txt", 'w+') as fp:
+            fp.write("left")
+
         #print("here")
 
     elif(y_val >= -10 and y_val <= 10):
         value = 1 #right
+        with open("../hack_grove/gameplay/static/direction.txt", 'w+') as fp:
+            fp.write("center")
         #print("here")
 
     elif(y_val < 10):
         value = -1 #left
+        with open("../hack_grove/gameplay/static/direction.txt", 'w') as fp:
+            fp.write("right")
         #print("here")
 
     else:
         value = 3 #exit the program
+        with open("../hack_grove/gameplay/static/direction.txt", 'w') as fp:
+            fp.write("center")
         #print("here")
 
     return value
@@ -110,4 +119,4 @@ while (1):
     print(output_command(var1, var2, var3))
  
 
-    time.sleep(.5)
+    #time.sleep(.5)
